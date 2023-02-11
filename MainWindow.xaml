@@ -18,7 +18,7 @@
                 <Label x:Name="lblCsaladnevekSzama" Content="0"></Label>
             </StackPanel>
             <ListBox Margin="5" Background="BlanchedAlmond" x:Name="lbCsaladnevek" Height="250" Width="350"></ListBox>
-            <ListBox Margin="5" x:Name="lbGeneraltNevek" Background="Salmon" Height="250" Width="350"></ListBox>
+            <ListBox Margin="5" x:Name="lbGeneraltNevek" MouseDoubleClick="ElemTorlese" Background="Salmon" Height="250" Width="350"></ListBox>
         </StackPanel>
         <StackPanel Grid.Column="1">
             <StackPanel Orientation="Horizontal" Margin="5">
@@ -49,7 +49,7 @@
             </Border>
             <StackPanel Margin="5">
                 <Button Margin="5" Height="40px" x:Name="btnNevetGeneral" Content="Neveket generál" FontSize="15px" Click="btnNevetGeneral_Click"></Button>
-                <Button Margin="5" Height="40px" x:Name="btnNevekTorlese" Content="Generált nevek törlése" FontSize="15px"></Button>
+                <Button Margin="5" Height="40px" x:Name="btnNevekTorlese" Content="Generált nevek törlése" FontSize="15px" Click="btnNevekTorlese_Click"></Button>
                 <Button Margin="5" Height="40px" x:Name="btnNevekRendezese" Content="Nevek rendezése" FontSize="15px" Click="btnNevekRendezese_Click"></Button>
                 <Button Margin="5" Height="40px" x:Name="btnNevekMentese" Content="Nevek mentése" FontSize="15px" Click="btnNevekMentese_Click"></Button>
             </StackPanel>
