@@ -1,0 +1,66 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Width="400">
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Button Content="Betöltés" x:Name="btnBetoltCsaladnev" Height="25px" HorizontalAlignment="Left" Click="btnBetoltCsaladnev_Click"></Button>
+                <Label Content="Családnevek"></Label>
+                <Label x:Name="lblCsaladnevekSzama" Content="0"></Label>
+            </StackPanel>
+            <ListBox Margin="5" Background="BlanchedAlmond" x:Name="lbCsaladnevek" Height="250" Width="350"></ListBox>
+            <ListBox Margin="5" x:Name="lbGeneraltNevek" Background="Salmon" Height="250" Width="350"></ListBox>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Button Content="Betöltés" x:Name="btnBetoltUtonev" Height="25px" HorizontalAlignment="Left" Click="btnBetoltUtonev_Click"></Button>
+                <Label Content="Utónevek"></Label>
+                <Label x:Name="lblUtonevekSzama" Content="0"></Label>
+            </StackPanel>
+            <ListBox Margin="5" Background="BlanchedAlmond" x:Name="lbUtonevek" Height="250" Width="350"></ListBox>
+            <Border Background="LightSeaGreen" CornerRadius="10" Padding="5" Width="350" Margin="5">
+                <StackPanel Height="100">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Utónevek száma:"></Label>
+                        <RadioButton x:Name="rbEgy" Height="15"></RadioButton>
+                        <Label Content="Egy"></Label>
+                        <RadioButton x:Name="rbKetto" Height="15"></RadioButton>
+                        <Label Content="Kettő"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Létrehozandó nevek száma:"></Label>
+                        <TextBox Width="30px" x:Name="txtNevekSzam" Background="LightGreen" TextAlignment="Center" FontSize="20px" TextChanged="txtNevekSzam_TextChanged"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="0"></Label>
+                        <Slider x:Name="sldSlider" Width="300px" ValueChanged="sldSlider_ValueChanged"></Slider>
+                        <Label x:Name="lblMax" Content="0"></Label>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <StackPanel Margin="5">
+                <Button Margin="5" Height="40px" x:Name="btnNevetGeneral" Content="Neveket generál" FontSize="15px" Click="btnNevetGeneral_Click"></Button>
+                <Button Margin="5" Height="40px" x:Name="btnNevekTorlese" Content="Generált nevek törlése" FontSize="15px"></Button>
+                <Button Margin="5" Height="40px" x:Name="btnNevekRendezese" Content="Nevek rendezése" FontSize="15px" Click="btnNevekRendezese_Click"></Button>
+                <Button Margin="5" Height="40px" x:Name="btnNevekMentese" Content="Nevek mentése" FontSize="15px" Click="btnNevekMentese_Click"></Button>
+            </StackPanel>
+        </StackPanel>
+        <Grid VerticalAlignment="Bottom">
+            <StatusBar>
+                <StatusBarItem Content="Generált nevek száma:"/>
+                <TextBlock Text="{Binding ElementName=lbGeneraltNevek, Path=Items.Count}"/>
+                <Separator Margin="10 0"/>
+                <StatusBarItem x:Name="stbRendezes"/>
+            </StatusBar>
+        </Grid>
+    </Grid>
+</Window>
