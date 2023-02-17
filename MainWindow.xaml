@@ -18,7 +18,7 @@
                 <Label x:Name="lblCsaladnevekSzama" Content="0"></Label>
             </StackPanel>
             <ListBox Margin="5" Background="BlanchedAlmond" x:Name="lbCsaladnevek" Height="250" Width="350"></ListBox>
-            <ListBox Margin="5" x:Name="lbGeneraltNevek" MouseDoubleClick="ElemTorlese" Background="Salmon" Height="250" Width="350"></ListBox>
+            <ListBox Margin="5" x:Name="lbGeneraltNevek" MouseDoubleClick="ElemTorlese" Background="Salmon" Height="315" Width="350"></ListBox>
         </StackPanel>
         <StackPanel Grid.Column="1">
             <StackPanel Orientation="Horizontal" Margin="5">
@@ -55,7 +55,7 @@
             </StackPanel>
         </StackPanel>
         <Grid VerticalAlignment="Bottom">
-            <StatusBar>
+            <StatusBar Margin="0,0,-400,0">
                 <StatusBarItem Content="Generált nevek száma:"/>
                 <TextBlock Text="{Binding ElementName=lbGeneraltNevek, Path=Items.Count}"/>
                 <Separator Margin="10 0"/>

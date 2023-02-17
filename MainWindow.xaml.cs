@@ -38,7 +38,7 @@ namespace WpfApp1
             InitializeComponent();
 
         }
-
+        
         private void btnBetoltCsaladnev_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -97,7 +97,11 @@ namespace WpfApp1
                     csaladiNevek.RemoveAt(randomCsalad);
                     utoNevek.RemoveAt(randomUto);
                 }
-                lbGeneraltNevek.ItemsSource = letrehozottNevek;
+                foreach (var elem in letrehozottNevek)
+                {
+                    lbGeneraltNevek.Items.Add(elem);
+                }
+                letrehozottNevek.Clear();
 
             }
             else if (rbKetto.IsChecked==true)
@@ -119,8 +123,14 @@ namespace WpfApp1
                     utoNevek.RemoveAt(randomUto);
                     utoNevek.RemoveAt(randomUto_2);
                 }
-                lbGeneraltNevek.ItemsSource = letrehozottNevek;
+                foreach (var elem in letrehozottNevek)
+                {
+                    lbGeneraltNevek.Items.Add(elem);
+                }
+                letrehozottNevek.Clear();
             }
+            stbRendezes.Content = "";
+            NevlistaVegereUgras();
             sldSlider.Maximum = csaladiNevek.Count;
             lblMax.Content = csaladiNevek.Count;
             lblCsaladnevekSzama.Content = csaladiNevek.Count;
@@ -133,22 +143,34 @@ namespace WpfApp1
             sfd.DefaultExt = "txt";
             sfd.Filter = "Szöveges fájl (*.txt) | *.txt |CSV fájl (*.csv) | *.csv|Összes fájl (*.*) | *.*";
             sfd.Title = "Adja meg a névsor nevét!";
-            if (sfd.ShowDialog()==true)
+            if (sfd.ShowDialog() == true)
             {
                 StreamWriter mentes = new StreamWriter(sfd.FileName);
-                try
+                if (sfd.FilterIndex == 2)
                 {
-                    for (int index = 0; index < lbGeneraltNevek.Items.Count; index++)
+                    string csvNeve = "";
+                    foreach (var elem in lbGeneraltNevek.Items)
                     {
-                        mentes.WriteLine(Convert.ToString(lbGeneraltNevek.Items[index]));
+                        string[] teljesGeneraltNev = elem.ToString().Split(" ");
+                        if (teljesGeneraltNev.Length == 2)
+                        {
+                            csvNeve = teljesGeneraltNev[0] + ";" + teljesGeneraltNev[1];
+                        }
+                        else if (teljesGeneraltNev.Length == 3)
+                        {
+                            csvNeve = teljesGeneraltNev[0] + ";" + teljesGeneraltNev[1] + ";" + teljesGeneraltNev[2];
+                        }
+                        mentes.WriteLine(csvNeve);
                     }
                     mentes.Close();
-
                 }
-                catch (Exception)
+                else if (sfd.FilterIndex == 1)
                 {
-
-                    throw;
+                    foreach (var elem in lbGeneraltNevek.Items)
+                    {
+                        mentes.WriteLine(elem.ToString());
+                    }
+                    mentes.Close();
                 }
                 MessageBox.Show("Sikeres a mentés!");
                 mentes.Dispose();
@@ -157,7 +179,7 @@ namespace WpfApp1
         private void btnNevekRendezese_Click(object sender, RoutedEventArgs e)
         {
             lbGeneraltNevek.Items.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
-            stbRendezes.Content = "Rendezett névsor";
+            stbRendezes.Content = "Rendezett névsor!";
         }
         private void NevlistaVegereUgras()
         {
@@ -165,11 +187,14 @@ namespace WpfApp1
             lbCsaladnevek.ScrollIntoView(lbCsaladnevek.Items.CurrentItem);
             lbUtonevek.Items.MoveCurrentToLast();
             lbUtonevek.ScrollIntoView(lbUtonevek.Items.CurrentItem);
+            lbGeneraltNevek.Items.MoveCurrentToLast();
+            lbGeneraltNevek.ScrollIntoView(lbGeneraltNevek.Items.CurrentItem);
+
         }
         private void btnNevekTorlese_Click(object sender, RoutedEventArgs e)
         {
             letrehozottNevek.Clear();
-            lbGeneraltNevek.ItemsSource="";
+            lbGeneraltNevek.Items.Clear();
 
             foreach (var elem in kukazandoCsaladnevek)
             {
@@ -178,7 +203,7 @@ namespace WpfApp1
             foreach (var elem in kukazandoUtonevek)
             {
                 string[] utonevekSplit = elem.Split(" ");
-                if (utonevekSplit.Length>2)
+                if (utonevekSplit.Length>1)
                 {
                     utoNevek.Add(utonevekSplit[0]);
                     utoNevek.Add(utonevekSplit[1]);
@@ -189,6 +214,7 @@ namespace WpfApp1
                 }
                 
             }
+            stbRendezes.Content = "";
             kukazandoCsaladnevek.Clear();
             kukazandoUtonevek.Clear();
             lbCsaladnevek.ItemsSource = csaladiNevek;
@@ -205,30 +231,34 @@ namespace WpfApp1
 
             if (lbGeneraltNevek.SelectedItem != null)
             {
+                string[] nevTomb = valasztottNev.Split(" ");
                 letrehozottNevek.Remove(valasztottNev);
 
-                if (valasztottNev.Length == 3)
+                if (nevTomb.Length == 3)
                 {
-                    string[] haromNev = valasztottNev.Split(" ");
-                    kukazandoCsaladnevek.Remove(haromNev[0]);
-                    kukazandoUtonevek.Remove(haromNev[1] + " " + haromNev[2]);
-
+                    
+                    kukazandoCsaladnevek.Remove(nevTomb[0]);
+                    kukazandoUtonevek.Remove(nevTomb[1] + " " + nevTomb[2]);
+                    lbGeneraltNevek.Items.Remove(valasztottNev);
                 }
-                else if (valasztottNev.Length == 2)
+                
+                else if (nevTomb.Length == 2)
                 {
-                    string[] kettoNev = valasztottNev.Split(" ");
-                    kukazandoCsaladnevek.Remove(kettoNev[0]);
-                    kukazandoUtonevek.Remove(kettoNev[1]);
+                    
+                    kukazandoCsaladnevek.Remove(nevTomb[0]);
+                    kukazandoUtonevek.Remove(nevTomb[1]);
+                    lbGeneraltNevek.Items.Remove(valasztottNev);
                 }
             }
 
             string[] visszarak = valasztottNev.Split(" ");
-            lbGeneraltNevek.ItemsSource = letrehozottNevek;
+            
 
             if (visszarak.Length == 2)
             {
                 csaladiNevek.Add(visszarak[0]);
                 utoNevek.Add(visszarak[1]);
+
             }
             else if (visszarak.Length == 3)
             {
