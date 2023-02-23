@@ -47,8 +47,9 @@ namespace WpfApp1
                 foreach (var nev in File.ReadAllLines(ofd.FileName).ToList())
                 {
                     csaladiNevek.Add(nev);
+                    lbCsaladnevek.Items.Add(nev);
                 }
-                lbCsaladnevek.ItemsSource = csaladiNevek;
+                
             }
             lblCsaladnevekSzama.Content = csaladiNevek.Count;
             sldSlider.Maximum = csaladiNevek.Count;
@@ -62,14 +63,15 @@ namespace WpfApp1
                 foreach (var nev in File.ReadAllLines(ofd.FileName).ToList())
                 {
                     utoNevek.Add(nev);
+                    lbUtonevek.Items.Add(nev);
                 }
-                lbUtonevek.ItemsSource = utoNevek;
+                
             }
             lblUtonevekSzama.Content= utoNevek.Count;
         }
         private void sldSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            txtNevekSzam.Text = Convert.ToString((int)sldSlider.Value);
+            txtNevekSzam.Text = Convert.ToString((int)Math.Floor(sldSlider.Value));
         }
         private void txtNevekSzam_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -106,23 +108,27 @@ namespace WpfApp1
             }
             else if (rbKetto.IsChecked==true)
             {
-                for (int index = 0; index < sliderErtek; index++)
+                for (int i = 0; i < sliderErtek; i++)
                 {
-                    int randomCsalad = rnd.Next(0, csaladiNevek.Count);
-                    int randomUto = rnd.Next(0, utoNevek.Count);
-                    int randomUto_2 = rnd.Next(0, utoNevek.Count-1);
-
-                    letrehozottNevek.Add(csaladiNevek[randomCsalad] + " " + utoNevek[randomUto] + " " + utoNevek[randomUto_2]);
-                    kukazandoUtonevek.Add(utoNevek[randomUto]+ " " + utoNevek[randomUto_2]);
-                    kukazandoCsaladnevek.Add(csaladiNevek[randomCsalad]);
+                    string csaladNev, utoNev, utoNev_2;
+                    int randomCsalad = rnd.Next(0, lbCsaladnevek.Items.Count);
+                    int randomUto = rnd.Next(0, lbUtonevek.Items.Count);
+                    int randomUto_2 = rnd.Next(0, lbUtonevek.Items.Count - 1);
+                    csaladNev = Convert.ToString(lbCsaladnevek.Items[randomCsalad]);
+                    lbCsaladnevek.Items.RemoveAt(randomCsalad);
                     csaladiNevek.RemoveAt(randomCsalad);
-                    if (utoNevek[randomUto_2] == utoNevek[randomUto] || randomUto_2 > utoNevek.Count)
-                    {
-                        continue;
-                    }
+                    utoNev = Convert.ToString(lbUtonevek.Items[randomUto]);
+                    lbUtonevek.Items.RemoveAt(randomUto);
                     utoNevek.RemoveAt(randomUto);
+                    utoNev_2 = Convert.ToString(lbUtonevek.Items[randomUto_2]);
+                    lbUtonevek.Items.RemoveAt(randomUto_2);
                     utoNevek.RemoveAt(randomUto_2);
+                    letrehozottNevek.Add(csaladNev + " " + utoNev + " " + utoNev_2);
+                    kukazandoCsaladnevek.Add(csaladNev);
+                    kukazandoUtonevek.Add(utoNev + " " + utoNev_2);
+
                 }
+                
                 foreach (var elem in letrehozottNevek)
                 {
                     lbGeneraltNevek.Items.Add(elem);
@@ -199,6 +205,7 @@ namespace WpfApp1
             foreach (var elem in kukazandoCsaladnevek)
             {
                 csaladiNevek.Add(elem.ToString());
+                lbCsaladnevek.Items.Add(elem);
             }
             foreach (var elem in kukazandoUtonevek)
             {
@@ -207,18 +214,21 @@ namespace WpfApp1
                 {
                     utoNevek.Add(utonevekSplit[0]);
                     utoNevek.Add(utonevekSplit[1]);
+                    lbUtonevek.Items.Add(utonevekSplit[0]);
+                    lbUtonevek.Items.Add(utonevekSplit[1]);
                 }
                 else
                 {
                     utoNevek.Add(utonevekSplit[0]);
+                    lbUtonevek.Items.Add(utonevekSplit[0]);
                 }
                 
+                
+
             }
             stbRendezes.Content = "";
             kukazandoCsaladnevek.Clear();
             kukazandoUtonevek.Clear();
-            lbCsaladnevek.ItemsSource = csaladiNevek;
-            lbUtonevek.ItemsSource = utoNevek;
             NevlistaVegereUgras();
             sldSlider.Maximum = csaladiNevek.Count;
             lblUtonevekSzama.Content = utoNevek.Count;
@@ -274,5 +284,37 @@ namespace WpfApp1
             NevlistaVegereUgras();
 
         }
+
+        /*
+        private void btnNevekAthelyezese_Click(object sender, RoutedEventArgs e)
+        {
+            lbCsaladnevek.Items.Clear();
+            lbUtonevek.Items.Clear();
+
+            foreach (Object elem in csaladiNevek)
+            {
+                lbUtonevek.Items.Add(elem);
+            }
+            foreach (Object elem in utoNevek)
+            {
+                lbUtonevek.Items.Add(elem);
+            }
+            utoNevek.Clear();
+            foreach (var elem in csaladiNevek)
+            {
+                utoNevek.Add(elem);
+            }
+            foreach (Object elem in lbUtonevek.Items)
+            {
+                utoNevek.Add(Convert.ToString(elem));
+            }
+
+            csaladiNevek.Clear();
+            lblCsaladnevekSzama.Content = csaladiNevek.Count;
+            lblUtonevekSzama.Content = utoNevek.Count;
+            lblMax.Content = csaladiNevek.Count;
+            sldSlider.Maximum = csaladiNevek.Count;
+        }
+        */
     }
 }

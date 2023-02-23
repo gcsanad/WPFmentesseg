@@ -52,6 +52,7 @@
                 <Button Margin="5" Height="40px" x:Name="btnNevekTorlese" Content="Generált nevek törlése" FontSize="15px" Click="btnNevekTorlese_Click"></Button>
                 <Button Margin="5" Height="40px" x:Name="btnNevekRendezese" Content="Nevek rendezése" FontSize="15px" Click="btnNevekRendezese_Click"></Button>
                 <Button Margin="5" Height="40px" x:Name="btnNevekMentese" Content="Nevek mentése" FontSize="15px" Click="btnNevekMentese_Click"></Button>
+                <!--<Button Margin="5" Height="40px" x:Name="btnNevekAthelyezese" Content="Nevek áthelyezése" FontSize="15px" Click="btnNevekAthelyezese_Click"></Button>-->
             </StackPanel>
         </StackPanel>
         <Grid VerticalAlignment="Bottom">
