@@ -20,7 +20,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Schema;
-namespace WpfApp1
+
+namespace WpfApp6
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -38,18 +39,18 @@ namespace WpfApp1
             InitializeComponent();
 
         }
-        
+
         private void btnBetoltCsaladnev_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            if (ofd.ShowDialog()==true)
+            if (ofd.ShowDialog() == true)
             {
                 foreach (var nev in File.ReadAllLines(ofd.FileName).ToList())
                 {
                     csaladiNevek.Add(nev);
                     lbCsaladnevek.Items.Add(nev);
                 }
-                
+
             }
             lblCsaladnevekSzama.Content = csaladiNevek.Count;
             sldSlider.Maximum = csaladiNevek.Count;
@@ -65,9 +66,9 @@ namespace WpfApp1
                     utoNevek.Add(nev);
                     lbUtonevek.Items.Add(nev);
                 }
-                
+
             }
-            lblUtonevekSzama.Content= utoNevek.Count;
+            lblUtonevekSzama.Content = utoNevek.Count;
         }
         private void sldSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -78,7 +79,7 @@ namespace WpfApp1
 
             if (txtNevekSzam.Text == "")
             {
-               sldSlider.Value = 0;
+                sldSlider.Value = 0;
             }
             sldSlider.Value = Convert.ToDouble(txtNevekSzam.Text);
         }
@@ -106,7 +107,7 @@ namespace WpfApp1
                 letrehozottNevek.Clear();
 
             }
-            else if (rbKetto.IsChecked==true)
+            else if (rbKetto.IsChecked == true)
             {
                 for (int i = 0; i < sliderErtek; i++)
                 {
@@ -128,7 +129,7 @@ namespace WpfApp1
                     kukazandoUtonevek.Add(utoNev + " " + utoNev_2);
 
                 }
-                
+
                 foreach (var elem in letrehozottNevek)
                 {
                     lbGeneraltNevek.Items.Add(elem);
@@ -210,7 +211,7 @@ namespace WpfApp1
             foreach (var elem in kukazandoUtonevek)
             {
                 string[] utonevekSplit = elem.Split(" ");
-                if (utonevekSplit.Length>1)
+                if (utonevekSplit.Length > 1)
                 {
                     utoNevek.Add(utonevekSplit[0]);
                     utoNevek.Add(utonevekSplit[1]);
@@ -222,8 +223,8 @@ namespace WpfApp1
                     utoNevek.Add(utonevekSplit[0]);
                     lbUtonevek.Items.Add(utonevekSplit[0]);
                 }
-                
-                
+
+
 
             }
             stbRendezes.Content = "";
@@ -246,15 +247,15 @@ namespace WpfApp1
 
                 if (nevTomb.Length == 3)
                 {
-                    
+
                     kukazandoCsaladnevek.Remove(nevTomb[0]);
                     kukazandoUtonevek.Remove(nevTomb[1] + " " + nevTomb[2]);
                     lbGeneraltNevek.Items.Remove(valasztottNev);
                 }
-                
+
                 else if (nevTomb.Length == 2)
                 {
-                    
+
                     kukazandoCsaladnevek.Remove(nevTomb[0]);
                     kukazandoUtonevek.Remove(nevTomb[1]);
                     lbGeneraltNevek.Items.Remove(valasztottNev);
@@ -262,7 +263,7 @@ namespace WpfApp1
             }
 
             string[] visszarak = valasztottNev.Split(" ");
-            
+
 
             if (visszarak.Length == 2)
             {
@@ -285,36 +286,20 @@ namespace WpfApp1
 
         }
 
-        /*
-        private void btnNevekAthelyezese_Click(object sender, RoutedEventArgs e)
+        private void btnNevekMegforditasa_Click(object sender, RoutedEventArgs e)
         {
-            lbCsaladnevek.Items.Clear();
-            lbUtonevek.Items.Clear();
-
-            foreach (Object elem in csaladiNevek)
+            List<object> lista = new List<object>();
+            for (int i = lbGeneraltNevek.Items.Count-1;  i >= 0; i--)
             {
-                lbUtonevek.Items.Add(elem);
+                lista.Add(lbGeneraltNevek.Items[i]);
             }
-            foreach (Object elem in utoNevek)
+            lbGeneraltNevek.Items.Clear();
+            foreach (object item in lista)
             {
-                lbUtonevek.Items.Add(elem);
+                lbGeneraltNevek.Items.Add(item);
             }
-            utoNevek.Clear();
-            foreach (var elem in csaladiNevek)
-            {
-                utoNevek.Add(elem);
-            }
-            foreach (Object elem in lbUtonevek.Items)
-            {
-                utoNevek.Add(Convert.ToString(elem));
-            }
-
-            csaladiNevek.Clear();
-            lblCsaladnevekSzama.Content = csaladiNevek.Count;
-            lblUtonevekSzama.Content = utoNevek.Count;
-            lblMax.Content = csaladiNevek.Count;
-            sldSlider.Maximum = csaladiNevek.Count;
         }
-        */
+
+    
     }
 }

@@ -1,9 +1,9 @@
-﻿<Window x:Class="WpfApp1.MainWindow"
+﻿<Window x:Class="WpfApp6.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:local="clr-namespace:WpfApp6"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="800">
     <Grid>
@@ -52,7 +52,7 @@
                 <Button Margin="5" Height="40px" x:Name="btnNevekTorlese" Content="Generált nevek törlése" FontSize="15px" Click="btnNevekTorlese_Click"></Button>
                 <Button Margin="5" Height="40px" x:Name="btnNevekRendezese" Content="Nevek rendezése" FontSize="15px" Click="btnNevekRendezese_Click"></Button>
                 <Button Margin="5" Height="40px" x:Name="btnNevekMentese" Content="Nevek mentése" FontSize="15px" Click="btnNevekMentese_Click"></Button>
-                <!--<Button Margin="5" Height="40px" x:Name="btnNevekAthelyezese" Content="Nevek áthelyezése" FontSize="15px" Click="btnNevekAthelyezese_Click"></Button>-->
+                <Button Margin="5" Height="40px" x:Name="btnNevekMegforditasa" Content="Nevek megfordítása" FontSize="15px" Click="btnNevekMegforditasa_Click"></Button>
             </StackPanel>
         </StackPanel>
         <Grid VerticalAlignment="Bottom">
