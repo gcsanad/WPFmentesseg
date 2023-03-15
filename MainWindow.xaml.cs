@@ -21,7 +21,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Schema;
 
-namespace WpfApp6
+namespace WpfApp1
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -158,7 +158,7 @@ namespace WpfApp6
                     string csvNeve = "";
                     foreach (var elem in lbGeneraltNevek.Items)
                     {
-                        string[] teljesGeneraltNev = elem.ToString().Split(" ");
+                        string[] teljesGeneraltNev = elem.ToString().Split(' ');
                         if (teljesGeneraltNev.Length == 2)
                         {
                             csvNeve = teljesGeneraltNev[0] + ";" + teljesGeneraltNev[1];
@@ -210,7 +210,7 @@ namespace WpfApp6
             }
             foreach (var elem in kukazandoUtonevek)
             {
-                string[] utonevekSplit = elem.Split(" ");
+                string[] utonevekSplit = elem.Split(' ');
                 if (utonevekSplit.Length > 1)
                 {
                     utoNevek.Add(utonevekSplit[0]);
@@ -242,7 +242,7 @@ namespace WpfApp6
 
             if (lbGeneraltNevek.SelectedItem != null)
             {
-                string[] nevTomb = valasztottNev.Split(" ");
+                string[] nevTomb = valasztottNev.Split(' ');
                 letrehozottNevek.Remove(valasztottNev);
 
                 if (nevTomb.Length == 3)
@@ -262,7 +262,7 @@ namespace WpfApp6
                 }
             }
 
-            string[] visszarak = valasztottNev.Split(" ");
+            string[] visszarak = valasztottNev.Split(' ');
 
 
             if (visszarak.Length == 2)
@@ -289,7 +289,7 @@ namespace WpfApp6
         private void btnNevekMegforditasa_Click(object sender, RoutedEventArgs e)
         {
             List<object> lista = new List<object>();
-            for (int i = lbGeneraltNevek.Items.Count-1;  i >= 0; i--)
+            for (int i = lbGeneraltNevek.Items.Count - 1; i >= 0; i--)
             {
                 lista.Add(lbGeneraltNevek.Items[i]);
             }
@@ -300,6 +300,91 @@ namespace WpfApp6
             }
         }
 
-    
+        private void sliAthelyez_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            lblSzamlalas.Content = Math.Floor(sliAthelyez.Value);
+            
+        }
+
+        private void btnNevekAthelyezese_Click(object sender, RoutedEventArgs e)
+        {
+            int athelyez = Convert.ToInt32(Math.Floor(sliAthelyez.Value));
+
+            switch (athelyez)
+            {
+                case 1:
+                    foreach (var elem in lbCsaladnevek.Items)
+                    {
+                        lbGeneraltNevek.Items.Add(elem);
+                    }
+                    lbCsaladnevek.Items.Clear();
+                    lblCsaladnevekSzama.Content = lbCsaladnevek.Items.Count;
+                    break;
+
+                case 2:
+                    int indexKetto = 1;
+                    ObservableCollection<string> listaKetto = new ObservableCollection<string>();
+                    while (indexKetto <= lbCsaladnevek.Items.Count)
+                    {
+                        listaKetto.Add(lbCsaladnevek.Items[indexKetto].ToString());
+                        lbGeneraltNevek.Items.Add(lbCsaladnevek.Items[indexKetto]);
+                        indexKetto += 2;
+                    }
+                    foreach (var elem in listaKetto)
+                    {
+                        lbCsaladnevek.Items.Remove(elem);
+                        lblCsaladnevekSzama.Content = lbCsaladnevek.Items.Count;
+                    }
+                    break;
+                case 3:
+                    int indexHarom = 2;
+                    ObservableCollection<string> listaHarom = new ObservableCollection<string>();
+                    while (indexHarom <= lbCsaladnevek.Items.Count)
+                    {
+                        listaHarom.Add(lbCsaladnevek.Items[indexHarom].ToString());
+                        lbGeneraltNevek.Items.Add(lbCsaladnevek.Items[indexHarom]);
+                        indexHarom += 3;
+                    }
+                    foreach (var elem in listaHarom)
+                    {
+                        lbCsaladnevek.Items.Remove(elem);
+                        lblCsaladnevekSzama.Content = lbCsaladnevek.Items.Count;
+                    }
+                    break;
+
+                case 4:
+                    int indexNegy = 3;
+                    ObservableCollection<string> listaNegy = new ObservableCollection<string>();
+                    while (indexNegy <= lbCsaladnevek.Items.Count)
+                    {
+                        listaNegy.Add(lbCsaladnevek.Items[indexNegy].ToString());
+                        lbGeneraltNevek.Items.Add(lbCsaladnevek.Items[indexNegy]);
+                        indexNegy += 4;
+                    }
+                    foreach (var elem in listaNegy)
+                    {
+                        lbCsaladnevek.Items.Remove(elem);
+                        lblCsaladnevekSzama.Content = lbCsaladnevek.Items.Count;
+                    }
+                    break;
+                case 5:
+                    int indexOt = 4;
+                    ObservableCollection<string> listaOt = new ObservableCollection<string>();
+                    while (indexOt <= lbCsaladnevek.Items.Count)
+                    {
+                        listaOt.Add(lbCsaladnevek.Items[indexOt].ToString());
+                        lbGeneraltNevek.Items.Add(lbCsaladnevek.Items[indexOt]);
+                        indexOt += 5;
+                    }
+                    foreach (var elem in listaOt)
+                    {
+                        lbCsaladnevek.Items.Remove(elem);
+                        lblCsaladnevekSzama.Content = lbCsaladnevek.Items.Count;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
